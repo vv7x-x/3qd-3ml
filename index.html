@@ -1,38 +1,101 @@
-
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>سجّل في رحلة عقد العمل </title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <title>عقد عمل - Yahya Reza</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 40px;
+      border-radius: 16px;
+      text-align: center;
+      width: 90%;
+      max-width: 450px;
+      box-shadow: 0 0 20px #00000088;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      font-weight: 700;
+      color: #FFD700;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 10px;
+      font-size: 17px;
+      font-family: 'Cairo', sans-serif;
+    }
+
+    input {
+      background-color: #1c1c1c;
+      color: white;
+      border: 1px solid #444;
+    }
+
+    button {
+      background-color: #FFD700;
+      color: black;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #e6c200;
+    }
+  </style>
 </head>
 <body>
   <div class="container">
-    <h1>خطوة لقلبك - سجّل الآن</h1>
-    <form id="umrahForm">
-      <input type="text" name="name" placeholder="الاسم الكامل" required />
-      <input type="tel" name="phone" placeholder="رقم الهاتف" required />
-      <button type="submit">سجّل</button>
-    </form>
-    <div id="successMessage" style="display:none;">✅ تم التسجيل! يتم تحويلك الآن...</div>
+    <h2>نموذج عقد عمل</h2>
+    <input type="text" id="name" placeholder="الاسم الكامل" required />
+    <input type="text" id="job" placeholder="المسمى الوظيفي" required />
+    <input type="email" id="email" placeholder="البريد الإلكتروني" required />
+    <input type="tel" id="phone" placeholder="رقم الهاتف" required />
+    <button onclick="submitForm()">إرسال</button>
   </div>
 
   <script>
-    document.getElementById("umrahForm").addEventListener("submit", function(e) {
-      e.preventDefault();
-      const data = new FormData(this);
-      fetch("https://script.google.com/macros/s/AKfycbzLYDorabvd2c3-edoERQHJPD4XFpZrdABAEW0EiwYVJSnzXCuk4Xbb7I66lMG5q9pONQ/exec", {
+    function submitForm() {
+      const name = document.getElementById('name').value;
+      const job = document.getElementById('job').value;
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+
+      fetch("https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec", {
         method: "POST",
-        body: data
-      }).then(() => {
-        this.style.display = "none";
-        document.getElementById("successMessage").style.display = "block";
-        setTimeout(() => {
-          window.location.href = "https://chat.whatsapp.com/HzCmPDSZRy6BP24unRN5RT";
-        }, 2000);
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name: name,
+          job: job,
+          email: email,
+          phone: phone,
+          type: "عقد عمل"
+        })
       });
-    });
+
+      alert("تم إرسال البيانات بنجاح!");
+    }
   </script>
 </body>
 </html>
